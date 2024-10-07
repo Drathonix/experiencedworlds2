@@ -1,0 +1,9 @@
+v1	named	intermediary
+FIELD	com/drathonix/experiencedworlds/mixin/MixinPlayerAdvancements	Lnet/minecraft/server/level/ServerPlayer;	player	field_13391
+FIELD	com/drathonix/experiencedworlds/mixin/MixinPlayerAdvancements	Ljava/util/Map;	progress	field_41735
+FIELD	com/drathonix/experiencedworlds/mixin/MixinServerAdvancementManager	Ljava/util/Map;	advancements	field_13404
+FIELD	com/drathonix/experiencedworlds/mixin/MixinStatsCounter	Lit/unimi/dsi/fastutil/objects/Object2IntMap;	stats	field_15431
+METHOD	com/drathonix/experiencedworlds/mixin/MixinMinecraftServer	()Lnet/minecraft/server/level/ServerLevel;	overworld	method_30002
+METHOD	com/drathonix/experiencedworlds/mixin/MixinPlayerAdvancements	(Lnet/minecraft/advancements/AdvancementHolder;)Lnet/minecraft/advancements/AdvancementProgress;	getOrStartProgress	method_12882
+METHOD	com/drathonix/experiencedworlds/mixin/MixinServerLevel	()Lnet/minecraft/world/level/storage/DimensionDataStorage;	getDataStorage	method_17983
+METHOD	com/drathonix/experiencedworlds/mixin/MixinServerStatsCounter	()Ljava/lang/String;	toJson	method_14911

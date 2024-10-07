@@ -1,0 +1,58 @@
+¿fblocksŸŸx,dev.kikugie.stitcher.data.block.ContentBlock¿gcontent¿evaluex6package com.drathonix.experiencedworlds.unified;
+
+
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCONTENTÿÿÿÿŸx)dev.kikugie.stitcher.data.block.CodeBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿcdef¿icomponentŸx-dev.kikugie.stitcher.data.component.Condition¿esugarŸ¿evaluebifdtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypebIFÿÿÿiconditionŸx+dev.kikugie.stitcher.data.component.Literal¿etoken¿evalueeforgedtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypejIDENTIFIERÿÿÿÿÿÿienclosurefCLOSEDÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿescope¿fblocksŸŸx,dev.kikugie.stitcher.data.block.CommentBlock¿estart¿evalueb/*dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿgcontent¿evalueyimport com.vicious.loadmychunks.forge.LMCForge;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCOMMENTÿÿcend¿evalueb*/dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿÿÿÿÿÿÿŸx)dev.kikugie.stitcher.data.block.CodeBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿcdef¿icomponentŸx-dev.kikugie.stitcher.data.component.Condition¿ÿÿiextensionõÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿÿÿŸx)dev.kikugie.stitcher.data.block.CodeBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿcdef¿icomponentŸx-dev.kikugie.stitcher.data.component.Condition¿esugarŸ¿evaluebifdtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypebIFÿÿÿiconditionŸx+dev.kikugie.stitcher.data.component.Literal¿etoken¿evalueffabricdtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypejIDENTIFIERÿÿÿÿÿÿienclosurefCLOSEDÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿescope¿fblocksŸŸx,dev.kikugie.stitcher.data.block.ContentBlock¿gcontent¿evaluex0import net.fabricmc.api.ClientModInitializer;
+*dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCONTENTÿÿÿÿŸx,dev.kikugie.stitcher.data.block.CommentBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿgcontent¿evaluec/?}dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCOMMENTÿÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿÿÿŸx,dev.kikugie.stitcher.data.block.ContentBlock¿gcontent¿evalued
+
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCONTENTÿÿÿÿŸx)dev.kikugie.stitcher.data.block.CodeBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿcdef¿icomponentŸx-dev.kikugie.stitcher.data.component.Condition¿esugarŸ¿evaluebifdtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypebIFÿÿÿiconditionŸx+dev.kikugie.stitcher.data.component.Literal¿etoken¿evalueffabricdtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypejIDENTIFIERÿÿÿÿÿÿienclosurefCLOSEDÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿescope¿fblocksŸŸx,dev.kikugie.stitcher.data.block.CommentBlock¿estart¿evalueb/*dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿgcontent¿evaluexâpublic class LMCCLIENTRY implements ClientModInitializer {
+        @Override
+        public void onInitializeClient() {
+                LoadMyChunksClient.init();
+                LMCFabricInit.clientInit();
+        }
+}
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCOMMENTÿÿcend¿evalueb*/dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿÿÿÿÿÿÿŸx)dev.kikugie.stitcher.data.block.CodeBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿcdef¿icomponentŸx-dev.kikugie.stitcher.data.component.Condition¿ÿÿiextensionõÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿÿÿŸx,dev.kikugie.stitcher.data.block.ContentBlock¿gcontent¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCONTENTÿÿÿÿŸx)dev.kikugie.stitcher.data.block.CodeBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿcdef¿icomponentŸx-dev.kikugie.stitcher.data.component.Condition¿esugarŸ¿evaluedelifdtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypedELIFÿÿÿiconditionŸx+dev.kikugie.stitcher.data.component.Literal¿etoken¿evalueeforgedtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypejIDENTIFIERÿÿÿÿÿÿienclosurefCLOSEDÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿescope¿fblocksŸŸx,dev.kikugie.stitcher.data.block.CommentBlock¿estart¿evalueb/*dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿgcontent¿evalueyG@Mod.EventBusSubscriber(modid= LoadMyChunks.MOD_ID,bus= Mod.EventBusSubscriber.Bus.MOD,value= Dist.CLIENT)
+public class LMCCLIENTRY {
+        @SubscribeEvent
+        public static void clientInit(FMLClientSetupEvent event) {
+                LoadMyChunksClient.init();
+                LMCForge.clientInit();
+        }
+}
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCOMMENTÿÿcend¿evalueb*/dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿÿÿÿÿÿÿŸx)dev.kikugie.stitcher.data.block.CodeBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿcdef¿icomponentŸx-dev.kikugie.stitcher.data.component.Condition¿ÿÿiextensionõÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿÿÿŸx,dev.kikugie.stitcher.data.block.ContentBlock¿gcontent¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCONTENTÿÿÿÿŸx)dev.kikugie.stitcher.data.block.CodeBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿcdef¿icomponentŸx-dev.kikugie.stitcher.data.component.Condition¿esugarŸ¿evaluedelifdtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypedELIFÿÿÿiconditionŸx+dev.kikugie.stitcher.data.component.Literal¿etoken¿evaluehneoforgedtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypejIDENTIFIERÿÿÿÿÿÿienclosurefCLOSEDÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿescope¿fblocksŸŸx,dev.kikugie.stitcher.data.block.ContentBlock¿gcontent¿evalueximport com.vicious.loadmychunks.neoforge.LMCNeoInit;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCONTENTÿÿÿÿŸx)dev.kikugie.stitcher.data.block.CodeBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿcdef¿icomponentŸx-dev.kikugie.stitcher.data.component.Condition¿esugarŸ¿evaluebifdtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypebIFÿÿÿiconditionŸx.dev.kikugie.stitcher.data.component.Assignment¿ftarget¿evalue`dtypeŸx(dev.kikugie.stitcher.data.token.NullType¿ÿÿÿjpredicatesŸ¿evalueh>=1.20.6dtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypeiPREDICATEÿÿÿÿÿÿÿÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿescope¿fblocksŸŸx,dev.kikugie.stitcher.data.block.ContentBlock¿gcontent¿evaluexšimport net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCONTENTÿÿÿÿÿÿÿÿŸx)dev.kikugie.stitcher.data.block.CodeBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿcdef¿icomponentŸx-dev.kikugie.stitcher.data.component.Condition¿esugarŸ¿evaluebifdtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypebIFÿÿÿiconditionŸx.dev.kikugie.stitcher.data.component.Assignment¿ftarget¿evalue`dtypeŸx(dev.kikugie.stitcher.data.token.NullType¿ÿÿÿjpredicatesŸ¿evalueg<1.20.6dtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypeiPREDICATEÿÿÿÿÿÿÿÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿescope¿fblocksŸŸx,dev.kikugie.stitcher.data.block.CommentBlock¿estart¿evalueb/*dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿgcontent¿evaluexi@Mod.EventBusSubscriber(modid=LoadMyChunks.MOD_ID,bus= Mod.EventBusSubscriber.Bus.MOD,value= Dist.CLIENT)dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCOMMENTÿÿcend¿evalueb*/dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿÿÿÿÿÿÿŸx,dev.kikugie.stitcher.data.block.ContentBlock¿gcontent¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCONTENTÿÿÿÿŸx)dev.kikugie.stitcher.data.block.CodeBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿcdef¿icomponentŸx-dev.kikugie.stitcher.data.component.Condition¿esugarŸ¿evaluebifdtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypebIFÿÿÿiconditionŸx.dev.kikugie.stitcher.data.component.Assignment¿ftarget¿evalue`dtypeŸx(dev.kikugie.stitcher.data.token.NullType¿ÿÿÿjpredicatesŸ¿evalueh>=1.20.6dtypeŸx1dev.kikugie.stitcher.data.token.StitcherTokenTypeiPREDICATEÿÿÿÿÿÿÿÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿescope¿fblocksŸŸx,dev.kikugie.stitcher.data.block.ContentBlock¿gcontent¿evaluey&@EventBusSubscriber(modid=LoadMyChunks.MOD_ID, bus= EventBusSubscriber.Bus.MOD, value= Dist.CLIENT)
+public class LMCCLIENTRY {
+    @SubscribeEvent
+    public static void clientInit(FMLClientSetupEvent event) {
+        LoadMyChunksClient.init();
+        LMCNeoInit.clientInit();
+    }
+}
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCONTENTÿÿÿÿÿÿÿÿÿÿÿÿŸx)dev.kikugie.stitcher.data.block.CodeBlock¿estart¿evalueb//dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypemCOMMENT_STARTÿÿcdef¿icomponentŸx-dev.kikugie.stitcher.data.component.Condition¿ÿÿiextensionõÿcend¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypekCOMMENT_ENDÿÿÿÿŸx,dev.kikugie.stitcher.data.block.ContentBlock¿gcontent¿evalueb
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCONTENTÿÿÿÿÿÿÿÿÿÿ

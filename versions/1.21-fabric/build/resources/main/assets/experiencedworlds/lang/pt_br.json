@@ -1,0 +1,17 @@
+{
+  "experiencedworlds.grewborder": "%1$s fez uma estatística atingir %2$s, aumentando a borda em um bloco.",
+  "experiencedworlds.grewborderplural": "%1$s fez uma estatística atingir %2$s, aumentando a borda em %3$s blocos.",
+  "experiencedworlds.advancementattained": "%1$s fez um avanço, aumentando o multiplicador de crescimento da fronteira em %2$s. É agora %3$s",
+  "experiencedworlds.unfairworld": "A verificação de imparcialidade falhou ao encontrar um ponto de spawn justo dentro do período de tempo configurado de: %1$s segundos. Recomenda-se criar um novo mundo :(",
+  "experiencedworlds.fairworld": "Este mundo está confirmado para ter um spawn inicial justo! Obrigado por jogar Experienced Worlds!",
+  "experiencedworlds.bordersize": "O tamanho da borda mundial tem %1$s blocos de largura.",
+  "experiencedworlds.expansions": "A fronteira mundial expandiu %1$s vezes.",
+  "experiencedworlds.multiplier": "O multiplicador de fronteira mundial é %1$s.",
+  "experiencedworlds.nosuchlevel": "Não há mundo com nome %1$s",
+  "experiencedworlds.setworldmultiplier": "Defina o multiplicador específico do mundo para %1$s",
+  "experiencedworlds.setworldsize": "Defina o tamanho específico do mundo para %1$s",
+  "experiencedworlds.worldmultiplier": "1%$s's multiplicador de fronteira mundial é %2$s",
+  "experiencedworlds.worldsize": "1%$s's tamanho da fronteira mundial é %2$s",
+  "experiencedworlds.searchingforsafety": "Atualmente em busca de um ponto de partida justo. Você pode ser teletransportado em breve.",
+  "experiencedworlds.reloadedconfig": "Configuração recarregada"
+}

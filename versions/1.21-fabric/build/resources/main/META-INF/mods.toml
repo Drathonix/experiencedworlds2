@@ -1,0 +1,40 @@
+modLoader="javafml"
+loaderVersion="[2,)"
+license="MIT"
+issueTrackerURL="https://github.com/Drathonix/experiencedworlds2/issues"
+[[mods]]
+modId="experiencedworlds"
+version="2.0.0"
+displayName="Experienced Worlds"
+logoFile="lmc.png"
+authors="Drathonix"
+description='''
+A World Border Mod
+'''
+
+
+
+[[dependencies.experiencedworlds]]
+# NOTE: THIS IS HERE BECAUSE 1.20.4 NEO STILL USED
+modId="fabric"
+#NEO COMPAT
+mandatory=true
+versionRange="[21.0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.experiencedworlds]]
+modId="minecraft"
+#NEO COMPAT
+mandatory=true
+versionRange="(1.20.6,1.21]"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.experiencedworlds]]
+modId="architectury"
+#NEO COMPAT
+mandatory=true
+versionRange="[13.0.1,)"
+ordering="NONE"
+side="BOTH"

@@ -1,0 +1,38 @@
+{
+  "mappings": {
+    "com/drathonix/experiencedworlds/mixin/MixinMinecraftServer": {
+      "<init>": "Lnet/minecraft/server/MinecraftServer;<init>(Ljava/lang/Thread;Lnet/minecraft/class_32$class_5143;Lnet/minecraft/class_3283;Lnet/minecraft/class_6904;Ljava/net/Proxy;Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/class_7497;Lnet/minecraft/class_3950;)V",
+      "createLevels": "Lnet/minecraft/server/MinecraftServer;method_3786(Lnet/minecraft/class_3949;)V"
+    },
+    "com/drathonix/experiencedworlds/mixin/MixinPlayerAdvancements": {
+      "award": "Lnet/minecraft/class_2985;method_12878(Lnet/minecraft/class_8779;Ljava/lang/String;)Z",
+      "revoke": "Lnet/minecraft/class_2985;method_12883(Lnet/minecraft/class_8779;Ljava/lang/String;)Z"
+    },
+    "com/drathonix/experiencedworlds/mixin/MixinServerLevel": {
+      "<init>": "Lnet/minecraft/class_3218;<init>(Lnet/minecraft/server/MinecraftServer;Ljava/util/concurrent/Executor;Lnet/minecraft/class_32$class_5143;Lnet/minecraft/class_5268;Lnet/minecraft/class_5321;Lnet/minecraft/class_5363;Lnet/minecraft/class_3949;ZJLjava/util/List;ZLnet/minecraft/class_8565;)V"
+    },
+    "com/drathonix/experiencedworlds/mixin/MixinServerPlayer": {
+      "awardStat": "Lnet/minecraft/class_3222;method_7342(Lnet/minecraft/class_3445;I)V",
+      "resetStat": "Lnet/minecraft/class_3222;method_7266(Lnet/minecraft/class_3445;)V"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "com/drathonix/experiencedworlds/mixin/MixinMinecraftServer": {
+        "<init>": "Lnet/minecraft/server/MinecraftServer;<init>(Ljava/lang/Thread;Lnet/minecraft/class_32$class_5143;Lnet/minecraft/class_3283;Lnet/minecraft/class_6904;Ljava/net/Proxy;Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/class_7497;Lnet/minecraft/class_3950;)V",
+        "createLevels": "Lnet/minecraft/server/MinecraftServer;method_3786(Lnet/minecraft/class_3949;)V"
+      },
+      "com/drathonix/experiencedworlds/mixin/MixinPlayerAdvancements": {
+        "award": "Lnet/minecraft/class_2985;method_12878(Lnet/minecraft/class_8779;Ljava/lang/String;)Z",
+        "revoke": "Lnet/minecraft/class_2985;method_12883(Lnet/minecraft/class_8779;Ljava/lang/String;)Z"
+      },
+      "com/drathonix/experiencedworlds/mixin/MixinServerLevel": {
+        "<init>": "Lnet/minecraft/class_3218;<init>(Lnet/minecraft/server/MinecraftServer;Ljava/util/concurrent/Executor;Lnet/minecraft/class_32$class_5143;Lnet/minecraft/class_5268;Lnet/minecraft/class_5321;Lnet/minecraft/class_5363;Lnet/minecraft/class_3949;ZJLjava/util/List;ZLnet/minecraft/class_8565;)V"
+      },
+      "com/drathonix/experiencedworlds/mixin/MixinServerPlayer": {
+        "awardStat": "Lnet/minecraft/class_3222;method_7342(Lnet/minecraft/class_3445;I)V",
+        "resetStat": "Lnet/minecraft/class_3222;method_7266(Lnet/minecraft/class_3445;)V"
+      }
+    }
+  }
+}

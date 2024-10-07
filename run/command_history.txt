@@ -1,0 +1,2 @@
+/worldborder
+/worldborder get

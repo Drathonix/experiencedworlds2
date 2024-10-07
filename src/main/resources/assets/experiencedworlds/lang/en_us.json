@@ -1,0 +1,17 @@
+{
+  "experiencedworlds.grewborder": "%1$s has made a stat reach %2$s, growing the border by a block.",
+  "experiencedworlds.grewborderplural": "%1$s has made a stat reach %2$s, growing the border by %3$s blocks.",
+  "experiencedworlds.advancementattained": "%1$s has made an advancement, increasing the border growth multiplier by %2$s. It is now %3$s",
+  "experiencedworlds.unfairworld": "The fairness check failed to find a fair spawn point within the configured time frame of: %1$s seconds. It is recommended to create a new world :(",
+  "experiencedworlds.fairworld": "This world is confirmed to have a fair starting spawn! Thanks for playing Experienced Worlds!",
+  "experiencedworlds.bordersize": "The world border size is %1$s blocks wide.",
+  "experiencedworlds.expansions": "The world border has expanded %1$s times.",
+  "experiencedworlds.multiplier": "The world border multiplier is %1$s.",
+  "experiencedworlds.nosuchlevel": "There is no world named %1$s",
+  "experiencedworlds.setworldmultiplier": "Set the world specific multiplier to %1$s",
+  "experiencedworlds.setworldsize": "Set the world specific size to %1$s",
+  "experiencedworlds.worldmultiplier": "1%$s's world border multiplier is %2$s",
+  "experiencedworlds.worldsize": "1%$s's world border size is %2$s",
+  "experiencedworlds.searchingforsafety": "Currently searching for a fair starting point. You may be teleported soon.",
+  "experiencedworlds.reloadedconfig": "Reloaded Config!"
+}

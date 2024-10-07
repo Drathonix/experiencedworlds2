@@ -1,0 +1,14 @@
+¿fblocksŸŸx,dev.kikugie.stitcher.data.block.ContentBlock¿gcontent¿evaluexÜ{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.drathonix.experiencedworlds2.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
+dtypeŸx+dev.kikugie.stitcher.data.token.ContentTypegCONTENTÿÿÿÿÿÿ
