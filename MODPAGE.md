@@ -31,12 +31,15 @@ All Users: /experiencedworlds border <size,multiplier,expansions> shows informat
 Admins on servers, or in singleplayer/lan: /experiencedworlds config reload - Reloads the config  
 Admins only (cheats on in singleplayer): /experiencedworlds world <bonusbordermultiplier,bonusbordersize> <value> allows adding a multiplier and size to the current dimension you are in.
 
-**Configuration (file located in config/experiencedworlds):**
+## Translations:
+Experienced Worlds is a server-side mod, however translation will not be possible unless clients also have the mod installed. By default, English translations will be sent to all users as fallback.
+
+## Configuration (file located in config/experiencedworlds):
 
 Most of this mod's features are configurable including: the speed the border expands, the amount the border expands, the starting size of the border, the stats that contribute to border growth, etc. If you want something that is not configurable to be added, feel free to ask!
 
-**Current state of Stability**
+### Current state of Stability
 As of 10/7, version 1.1.6 and below of Experienced Worlds have been effectively expired and completely replaced by V 2.0.0+. Updating worlds running 1.1.6 will result in data loss. This decision was made to improve the codebase and provide a long-lasting stable version of the mod.
 
-**Dependencies**
+### Dependencies
 V-2.0.0 depends on Architectury (and fabric-api on fabric), however V-1.1.6 and below require ViciousCore and Server Statistics.
