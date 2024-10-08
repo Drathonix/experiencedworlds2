@@ -169,6 +169,7 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
     @Override
     public void expand(int expansions) {
         this.expansions = expansions+this.expansions;
+        this.expansions = Math.max(0,this.expansions);
         setDirty();
     }
 

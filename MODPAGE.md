@@ -39,4 +39,4 @@ Most of this mod's features are configurable including: the speed the border exp
 As of 10/7, version 1.1.6 and below of Experienced Worlds have been effectively expired and completely replaced by V 2.0.0+. Updating worlds running 1.1.6 will result in data loss. This decision was made to improve the codebase and provide a long-lasting stable version of the mod.
 
 **Dependencies**
-V-2.0.0 has no dependencies, however V-1.1.6 and below require ViciousCore and Server Statistics.
+V-2.0.0 depends on Architectury (and fabric-api on fabric), however V-1.1.6 and below require ViciousCore and Server Statistics.

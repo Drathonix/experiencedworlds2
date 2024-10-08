@@ -31,6 +31,7 @@ class ModData {
     val group = property("maven_group").toString()
     val mc_min = property("mod.mc_min").toString()
     val mc_max = property("mod.mc_max").toString()
+    val mc_targets = property("mod.mc_targets").toString().split(",");
     val description = property("mod.description").toString()
     val authors = property("mod.authors").toString()
     val icon = property("mod.icon").toString()
@@ -310,7 +311,7 @@ publishMods {
     modrinth {
         projectId = property("publish.modrinth").toString()
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-        minecraftVersions.add(env.mc_ver)
+        minecraftVersions.addAll(mod.mc_targets)
         requires {
             slug = "architectury-api"
         }

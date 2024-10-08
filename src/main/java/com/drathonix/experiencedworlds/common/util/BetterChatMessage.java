@@ -1,10 +1,13 @@
 package com.drathonix.experiencedworlds.common.util;
 
+import com.drathonix.experiencedworlds.common.config.EWCFG;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.Entity;
 
@@ -50,10 +53,14 @@ public class BetterChatMessage {
                             }
                         }
                         Tuple<Object[],Integer> ret = gatherComponentsForTranslation(objects,i+1, Integer.parseInt(val.toString()));
-                        unstyled = Component.translatable(str.substring(1+val.toString().length(),str.length()-1), ret.getA());
+                        String key = str.substring(1+val.toString().length(),str.length()-1);
+                        unstyled = Component.translatableWithFallback(key, Language.getInstance().getOrDefault(key), ret.getA());
                         i = (int) ret.getB();
                     }
-                    else unstyled = Component.translatable(str.substring(1, str.length() - 1));
+                    else {
+                        String key = str.substring(1, str.length() - 1);
+                        unstyled = Component.translatableWithFallback(key,Language.getInstance().getOrDefault(key));
+                    }
                 }
                 else{
                     unstyled = Component.literal(str);

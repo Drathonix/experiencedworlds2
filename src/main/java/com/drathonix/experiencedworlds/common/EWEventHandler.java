@@ -35,7 +35,7 @@ public class EWEventHandler {
         GlobalEvents.addListener(StatChangedEvent.class,EWEventHandler::onStatChanged);
         EntityEvent.LIVING_HURT.register(((entity, source, amount) -> {
             if(ExperiencedBorderManager.difficulty != null){
-                return EventResult.interruptTrue();
+                return EventResult.interruptFalse();
             }
             return EventResult.pass();
         }));
