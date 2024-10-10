@@ -26,7 +26,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ExperiencedWorlds {
-    public static final String modid = "experiencedworlds";
+    public static final String MOD_ID = "experiencedworlds";
     public static MinecraftServer server;
     private static final Logger LOGGER = LogManager.getLogger("experiencedworlds");
 
