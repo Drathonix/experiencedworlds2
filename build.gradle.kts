@@ -325,7 +325,7 @@ publishMods {
     curseforge {
         projectId = property("publish.curseforge").toString()
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-        minecraftVersions.add(env.mc_ver)
+        minecraftVersions.addAll(mod.mc_targets)
         requires {
             slug = "architectury-api"
         }

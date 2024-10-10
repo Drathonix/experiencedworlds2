@@ -6,8 +6,6 @@ import com.drathonix.experiencedworlds.ExperiencedWorlds;
 
 //? if fabric {
 /*import net.fabricmc.api.ModInitializer;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
 
 public class ENTRY implements ModInitializer {
         @Override
