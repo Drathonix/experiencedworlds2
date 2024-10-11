@@ -16,3 +16,7 @@ Switched to stonecutter for multi-versioning, updating and backporting the mod i
 ## Why were these breaking changes made?
 
 The old version used mixins to inject fields into ViciousCore data classes which was extremely scuffed and often encountered issues. In addition, requiring vicious core and server statistics created unnecessary bloat. 2.0 has better code structure and less bloat, it is also just more stable.
+
+### Weird interactions due to vanilla changes
+
+There was something changed about interacting with blocks intercepting the world border. In the past, blocks that intercepted the border were breakable, now its like a 50/50 if this works. I don't know what changed in vanilla to cause this but if its significant enough I may reverse the change, You can still progress EW perfectly fine though.
