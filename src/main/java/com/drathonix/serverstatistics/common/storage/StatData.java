@@ -4,6 +4,7 @@ package com.drathonix.serverstatistics.common.storage;
 import com.drathonix.event.GlobalEvents;
 import com.drathonix.experiencedworlds.ExperiencedWorlds;
 import com.drathonix.experiencedworlds.common.data.WorldSpecificExperiencedBorder;
+import com.drathonix.serverstatistics.common.bridge.IMixinDimensionDataStorage;
 import com.drathonix.serverstatistics.common.bridge.IMixinServerAdvancementManager;
 import com.drathonix.serverstatistics.common.bridge.IMixinServerStatsCounter;
 import com.drathonix.serverstatistics.common.event.AdvancedFirstTimeEvent;
@@ -70,13 +71,13 @@ public class StatData extends SavedData{
     public StatData(CompoundTag tag) {
         CompoundTag advanced = tag.getCompound("advancements");
         for (String key : advanced.getAllKeys()) {
-            ListTag achievers = tag.getList(key,Tag.TAG_LIST);
+            ListTag achievers = tag.getList(key,Tag.TAG_INT_ARRAY);
             Set<UUID> uuids = completedAdvancements.computeIfAbsent(ResourceLocation.tryParse(key),k-> new HashSet<>());
             for (Tag achiever : achievers) {
                 uuids.add(NbtUtils.loadUUID(achiever));
             }
         }
-        ListTag partic = tag.getList("participants",Tag.TAG_LIST);
+        ListTag partic = tag.getList("participants",Tag.TAG_INT_ARRAY);
         for (Tag tag1 : partic) {
             participants.add(NbtUtils.loadUUID(tag1));
         }
@@ -100,9 +101,8 @@ public class StatData extends SavedData{
         holders.add(sp.getUUID());
         if(holders.size() == 1){
             GlobalEvents.post(new AdvancedFirstTimeEvent(sp,advancement));
+            setDirty();
         }
-        setDirty();
-
     }
 
     public void advanceRevoked(Advancement advancement, ServerPlayer sp){
@@ -116,8 +116,8 @@ public class StatData extends SavedData{
         Set<UUID> holders = completedAdvancements.getOrDefault(id, new HashSet<>());
         if(holders.isEmpty()){
             GlobalEvents.post(new AdvancementCompletelyRevokedEvent(sp,advancement));
+            setDirty();
         }
-        setDirty();
     }
 
     public void awardStat(Stat<?> stat, int value, ServerPlayer player) {
@@ -130,9 +130,14 @@ public class StatData extends SavedData{
             if(!sae.isCanceled()) {
                 counter.setValue(null, stat, statVal+value);
             }
+            setDirty();
         }
-        setDirty();
+    }
 
+    public void forceSave(){
+        if(ExperiencedWorlds.server.overworld().getChunkSource().getDataStorage() instanceof IMixinDimensionDataStorage mixin){
+            mixin.ss$forceSave("server_statistics_manager");
+        }
     }
 
     public void resetStat(Stat<?> stat, ServerPlayer player) {

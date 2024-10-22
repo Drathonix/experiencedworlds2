@@ -7,6 +7,7 @@ import com.drathonix.experiencedworlds.common.config.EWCFG;
 import com.drathonix.experiencedworlds.common.math.EWMath;
 import com.drathonix.experiencedworlds.common.util.EWChatMessage;
 import com.drathonix.serverstatistics.ServerStatistics;
+import com.drathonix.serverstatistics.common.bridge.IMixinDimensionDataStorage;
 import com.drathonix.serverstatistics.common.event.StatChangedEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -18,6 +19,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.NotNull;
@@ -159,6 +161,7 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
         if(fairness == FairnessLevel.CHECKING){
             fairness = FairnessLevel.UNSET;
         }
+        setDirty();
     }
 
     @Override
@@ -212,8 +215,14 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
     
     public void reset() {
         expansions = 0;
-        setDirty();
         growBorder();
+        setDirty();
+    }
+
+    public void forceSave(){
+        if(ExperiencedWorlds.server.overworld().getChunkSource().getDataStorage() instanceof IMixinDimensionDataStorage mixin){
+            mixin.ss$forceSave("experienced_worlds_manager");
+        }
     }
 
     public boolean maximumBorderSize() {

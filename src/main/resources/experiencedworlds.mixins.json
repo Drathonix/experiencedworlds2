@@ -10,7 +10,8 @@
     "MixinServerLevel",
     "MixinServerPlayer",
     "MixinServerStatsCounter",
-    "MixinStatsCounter"
+    "MixinStatsCounter",
+    "MixinDimensionDataStorage"
   ],
   "client": [
   ],

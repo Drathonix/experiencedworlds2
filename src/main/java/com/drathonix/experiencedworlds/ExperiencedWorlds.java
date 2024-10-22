@@ -10,6 +10,7 @@ import com.mojang.logging.LogUtils;
 import com.vicious.persist.mappify.registry.Stringify;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
 import dev.architectury.event.events.common.PlayerEvent;
+import dev.architectury.event.events.common.TickEvent;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.gui.screens.options.LanguageSelectScreen;
 import net.minecraft.core.Registry;
@@ -25,10 +26,14 @@ import net.minecraft.stats.StatType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.concurrent.Executors;
+
 public class ExperiencedWorlds {
     public static final String MOD_ID = "experiencedworlds";
     public static MinecraftServer server;
     private static final Logger LOGGER = LogManager.getLogger("experiencedworlds");
+
+    private static long time = 0;
 
     public static void init() {
         LOGGER.info("Setting up Experienced Worlds!");
@@ -41,6 +46,14 @@ public class ExperiencedWorlds {
             EWCommands.register(dispatcher);
         });
         LOGGER.info("Done setting up Experienced Worlds!");
+        TickEvent.SERVER_LEVEL_POST.register(srv->{
+            long cur = System.currentTimeMillis();
+            if(cur >= time){
+                time = cur+EWCFG.autoSaveIntervalMS;
+                ExperiencedWorlds.getBorder().forceSave();
+                ServerStatistics.getData().forceSave();
+            }
+        });
     }
     public static ExperiencedBorderManager getBorder(){
         return ExperiencedBorderManager.get(server);

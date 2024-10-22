@@ -50,6 +50,8 @@ public class ServerStatistics {
                 });
             }
             data.participants.add(sp.getUUID());
+            data.setDirty();
+            data.forceSave();
         }
     }
 }

@@ -40,6 +40,9 @@ public class EWCFG  {
     @Save(description = "The maximum amount of time spent finding a viable spawn position. By default the vanilla world border is set to 0,0. Very often this can be in the middle of the ocean, the mod will try to find a valid spawn as close to 0,0 as it can.")
     public static long fairnessCheckMaximumTime = 60L;
 
+    @Save(description = "The time in milliseconds where all experienced worlds data is autosaved. Recommend at least 15 seconds. This is included to prevent data loss on server crash.")
+    public static long autoSaveIntervalMS = 1000*60;
+
     public static boolean sendAdvancementAnnouncements(){
         return announcements.contains(AnnouncementType.ADVANCEMENTS);
     }

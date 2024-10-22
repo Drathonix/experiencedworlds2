@@ -4,7 +4,6 @@
   "package": "com.drathonix.experiencedworlds.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-
   ],
   "client": [
   ],
