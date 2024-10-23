@@ -38,7 +38,10 @@ public class ExperiencedWorlds {
     public static void init() {
         LOGGER.info("Setting up Experienced Worlds!");
         Stringify.register(ResourceLocation.class,ResourceLocation::tryParse,ResourceLocation::toString);
-        Stringify.register(StatType.class,str-> BuiltInRegistries.STAT_TYPE.get(ResourceLocation.tryParse(str)),type->BuiltInRegistries.STAT_TYPE.getKey(type).toString());
+        //? <1.21.2
+        /*Stringify.register(StatType.class,str-> BuiltInRegistries.STAT_TYPE.get(ResourceLocation.tryParse(str)),type->BuiltInRegistries.STAT_TYPE.getKey(type).toString());*/
+        //? >1.21.1
+        Stringify.register(StatType.class,str-> BuiltInRegistries.STAT_TYPE.get(ResourceLocation.tryParse(str)).get().value(),type->BuiltInRegistries.STAT_TYPE.getKey(type).toString());
         EWCFG.init();
         ServerStatistics.init();
         EWEventHandler.init();

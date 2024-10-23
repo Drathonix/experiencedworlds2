@@ -108,7 +108,10 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
                 } else {
                     EWChatMessage.from(ChatFormatting.GREEN, ChatFormatting.BOLD, "<experiencedworlds.fairworld>").send(player);
                 }
-                player.teleportTo(sl, fairCenter.getX(), fairCenter.getY() + 1, fairCenter.getZ(), 0, 0);
+                //? <1.21.2
+                /*player.teleportTo(sl, fairCenter.getX(), fairCenter.getY() + 1, fairCenter.getZ(), 0, 0);*/
+                //? >1.21.2
+                player.teleportTo(fairCenter.getX(), fairCenter.getY() + 1, fairCenter.getZ());
             }
             pauseWorld(sl);
             growBorder();
@@ -119,8 +122,11 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
         ExperiencedWorlds.server.execute(() -> {
             ServerLevel sl = player.serverLevel();
             WorldBorder border = sl.getWorldBorder();
-            BlockPos fairCenter = FairnessFixer.scanDown((int) border.getCenterX(), (int) border.getCenterZ(), sl, (l, p, bs) -> bs.isCollisionShapeFullBlock(l,p));
-            player.teleportTo(sl, fairCenter.getX(), fairCenter.getY() + 1, fairCenter.getZ(), 0, 0);
+            BlockPos fairCenter = FairnessFixer.scanDown((int) border.getCenterX(), (int) border.getCenterZ(), sl, (l, p, bs) -> bs.isCollisionShapeFullBlock(l, p));
+            //? <1.21.2
+            /*player.teleportTo(sl, fairCenter.getX(), fairCenter.getY() + 1, fairCenter.getZ(), 0, 0);*/
+            //? >1.21.2
+            player.teleportTo(fairCenter.getX(), fairCenter.getY() + 1, fairCenter.getZ());
         });
     }
 

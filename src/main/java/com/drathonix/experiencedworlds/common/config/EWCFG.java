@@ -18,8 +18,14 @@ public class EWCFG  {
     public static final String path = "config/experiencedworlds.txt";
 
     public static void init() {
-        gameplay.activeStats.add(BuiltInRegistries.STAT_TYPE.get(ResourceLocation.tryBuild("minecraft","mined")));
+        //? <1.21.2 {
+        /*gameplay.activeStats.add(BuiltInRegistries.STAT_TYPE.get(ResourceLocation.tryBuild("minecraft","mined")));
         gameplay.activeStats.add(BuiltInRegistries.STAT_TYPE.get(ResourceLocation.tryBuild("minecraft","killed")));
+        *///?}
+        //? >1.21.2 {
+        gameplay.activeStats.add(BuiltInRegistries.STAT_TYPE.get(ResourceLocation.tryBuild("minecraft","mined")).get().value());
+        gameplay.activeStats.add(BuiltInRegistries.STAT_TYPE.get(ResourceLocation.tryBuild("minecraft","killed")).get().value());
+        //?}
         announcements.add(AnnouncementType.ADVANCEMENTS);
         announcements.add(AnnouncementType.BORDER_GROWTH);
         PersistShortcuts.init(EWCFG.class);

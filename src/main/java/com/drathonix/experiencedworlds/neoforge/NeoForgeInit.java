@@ -1,5 +1,5 @@
 //? if neoforge {
-/*package com.drathonix.experiencedworlds.neoforge;
+package com.drathonix.experiencedworlds.neoforge;
 
 import com.drathonix.experiencedworlds.common.EWEventHandler;
 import net.neoforged.bus.api.IEventBus;
@@ -18,4 +18,4 @@ public class NeoForgeInit {
         EWEventHandler.onServerStarted(event.getServer());
     }
 }
-*///?}
+//?}

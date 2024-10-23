@@ -8,6 +8,8 @@ import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.server.commands.SayCommand;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.Entity;
 
@@ -91,18 +93,18 @@ public class BetterChatMessage {
             }
         }
     }
-    public void send(Entity... e){
-        for (Entity entity : e) {
+    public void send(ServerPlayer... e){
+        for (ServerPlayer entity : e) {
             entity.sendSystemMessage(component);
         }
     }
-    public void send(Collection<? extends Entity> ents){
-        for (Entity ent : ents) {
+    public void send(Collection<? extends ServerPlayer> ents){
+        for (ServerPlayer ent : ents) {
             ent.sendSystemMessage(component);
         }
     }
-    public void sendExcept(Entity except, Collection<? extends Entity> ents){
-        for (Entity ent : ents) {
+    public void sendExcept(ServerPlayer except, Collection<? extends ServerPlayer> ents){
+        for (ServerPlayer ent : ents) {
             if(ent != except){
                 ent.sendSystemMessage(component);
             }
