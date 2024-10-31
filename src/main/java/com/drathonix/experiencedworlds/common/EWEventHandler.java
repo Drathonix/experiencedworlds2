@@ -43,7 +43,7 @@ public class EWEventHandler {
     }
 
 
-    public static void onStatChanged(StatChangedEvent sce){
+    public synchronized static void onStatChanged(StatChangedEvent sce){
         Stat<?> stat = sce.getStat();
         StatType<?> type = stat.getType();
         if(EWCFG.gameplay.activeStats.contains(type)){
@@ -60,7 +60,7 @@ public class EWEventHandler {
         }
     }
 
-    public static void onServerStarted(MinecraftServer server){
+    public synchronized static void onServerStarted(MinecraftServer server){
         for (ServerLevel l : server.getAllLevels()) {
             WorldSpecificExperiencedBorder dat = WorldSpecificExperiencedBorder.get(l);
             double newSize = ExperiencedWorlds.getBorder().getTransformedBorderSize() * Math.max(1, dat.multiplier) + dat.startingSize;
@@ -68,7 +68,7 @@ public class EWEventHandler {
         }
     }
 
-    public static void increaseMultiplier(AdvancedFirstTimeEvent afte){
+    public synchronized static void increaseMultiplier(AdvancedFirstTimeEvent afte){
         ExperiencedBorderManager swb = ExperiencedBorderManager.get(afte.getPlayer().server);
         boolean announce = EWCFG.sendAdvancementAnnouncements() && !swb.maximumMultiplier();
         double a2 = Math.round(swb.getCurrentMultiplierGain()*100.0)/100.0;

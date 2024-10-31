@@ -36,6 +36,8 @@ public abstract class MixinDimensionDataStorage implements IMixinDimensionDataSt
     }
 
 
+    @Shadow @Final private Path dataFolder;
+
     @Override
     public void ss$forceSave(String key) {
         try {
@@ -56,5 +58,10 @@ public abstract class MixinDimensionDataStorage implements IMixinDimensionDataSt
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public File ss$getCustomDataFile(String name) {
+        return new File(this.dataFolder.toFile(), name);
     }
 }

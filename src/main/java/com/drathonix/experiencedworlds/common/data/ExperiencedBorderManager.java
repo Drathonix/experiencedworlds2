@@ -29,14 +29,14 @@ import java.util.concurrent.ScheduledFuture;
 public class ExperiencedBorderManager extends SavedData implements IWorldBorderData{
     public static final SavedData.Factory<ExperiencedBorderManager> FACTORY = new SavedData.Factory<>(ExperiencedBorderManager::new,(compound, holder)->new ExperiencedBorderManager(compound), DataFixTypes.LEVEL);
 
-    public static ExperiencedBorderManager get(MinecraftServer server){
+    public synchronized static ExperiencedBorderManager get(MinecraftServer server){
         return server.overworld().getDataStorage().computeIfAbsent(FACTORY,"experienced_worlds_manager");
     }
 
     private static long lastExpand = System.currentTimeMillis();
     public static Difficulty difficulty = null;
 
-    public static void growBorder(){
+    public synchronized static void growBorder(){
         ExperiencedBorderManager swb = get(ExperiencedWorlds.server);
         boolean doFastExpand = lastExpand+50 > System.currentTimeMillis();
         for (ServerLevel level : ExperiencedWorlds.server.getAllLevels()) {
@@ -45,13 +45,13 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
         lastExpand = System.currentTimeMillis();
     }
 
-    public static void grow(int i){
+    public synchronized static void grow(int i){
         ExperiencedBorderManager swb = get(ExperiencedWorlds.server);
         swb.expand(i);
         growBorder();
     }
 
-    public static void onJoin(ServerPlayer sp){
+    public synchronized static void onJoin(ServerPlayer sp){
 
         ExperiencedBorderManager swb = ExperiencedBorderManager.get(ExperiencedWorlds.server);
         ServerLevel sl = sp.serverLevel();
@@ -62,7 +62,7 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
         }
     }
 
-    private static void checkNeedsFixing(ServerLevel sl, ExperiencedBorderManager swb){
+    private synchronized static void checkNeedsFixing(ServerLevel sl, ExperiencedBorderManager swb){
         if (swb.fairness == FairnessLevel.UNSET) {
             if (sl.getServer().overworld() == sl) {
                 fixBorder(sl,swb);
@@ -70,7 +70,7 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
         }
     }
 
-    static void pauseWorld(ServerLevel sl){
+    static synchronized void pauseWorld(ServerLevel sl){
         if(difficulty == null){
             difficulty = sl.getDifficulty();
         }
@@ -81,7 +81,7 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
     }
 
     public static ScheduledFuture<?> task = null;
-    private static void fixBorder(ServerLevel sl, ExperiencedBorderManager swb){
+    private synchronized static void fixBorder(ServerLevel sl, ExperiencedBorderManager swb){
         swb.fairness = FairnessLevel.CHECKING;
         pauseWorld(sl);
         if(task != null){
@@ -118,7 +118,7 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
         });
     }
 
-    private static void relocateToSafeLocation(ServerPlayer player){
+    private synchronized static void relocateToSafeLocation(ServerPlayer player){
         ExperiencedWorlds.server.execute(() -> {
             ServerLevel sl = player.serverLevel();
             WorldBorder border = sl.getWorldBorder();
@@ -130,7 +130,7 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
         });
     }
 
-    public static void increaseBorder(int amount, StatChangedEvent sce){
+    public synchronized static void increaseBorder(int amount, StatChangedEvent sce){
         ExperiencedBorderManager swb = ExperiencedWorlds.getBorder();
         swb.expand(amount);
         double a2 = Math.round(amount*swb.getSizeMultiplier()*EWCFG.gameplay.sizeGained*100.0)/100.0;
@@ -176,7 +176,7 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
     }
 
     @Override
-    public void expand(int expansions) {
+    public synchronized void expand(int expansions) {
         this.expansions = expansions+this.expansions;
         this.expansions = Math.max(0,this.expansions);
         setDirty();
@@ -213,19 +213,19 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
         return EWCFG.gameplay.advancementMultiplierBase;
     }
 
-    public double getCurrentMultiplierGain() {
+    public synchronized double getCurrentMultiplierGain() {
         int numAdvancements = ServerStatistics.getData().completedAdvancements.size();
         double mb = getMultiplierBase();
         return EWCFG.gameplay.multipliersExponentialGain ? EWMath.baseToTheX(mb,numAdvancements,-1) : mb*numAdvancements;
     }
     
-    public void reset() {
+    public synchronized void reset() {
         expansions = 0;
         growBorder();
         setDirty();
     }
 
-    public void forceSave(){
+    public synchronized void forceSave(){
         if(ExperiencedWorlds.server.overworld().getChunkSource().getDataStorage() instanceof IMixinDimensionDataStorage mixin){
             mixin.ss$forceSave("experienced_worlds_manager");
         }

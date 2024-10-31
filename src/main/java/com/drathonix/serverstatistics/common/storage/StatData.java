@@ -6,7 +6,6 @@ import com.drathonix.experiencedworlds.ExperiencedWorlds;
 import com.drathonix.experiencedworlds.common.data.WorldSpecificExperiencedBorder;
 import com.drathonix.serverstatistics.common.bridge.IMixinDimensionDataStorage;
 import com.drathonix.serverstatistics.common.bridge.IMixinServerAdvancementManager;
-import com.drathonix.serverstatistics.common.bridge.IMixinServerStatsCounter;
 import com.drathonix.serverstatistics.common.event.AdvancedFirstTimeEvent;
 import com.drathonix.serverstatistics.common.event.AdvancementCompletelyRevokedEvent;
 import com.drathonix.serverstatistics.common.event.ServerStatsResetEvent;
@@ -38,7 +37,7 @@ public class StatData extends SavedData{
 
     public final Map<ResourceLocation,Set<UUID>> completedAdvancements = new HashMap<>();
     public final Set<UUID> participants = new HashSet<>();
-    public ServerStatsCounter counter = new ServerStatsCounter(ExperiencedWorlds.server,new FakeFile(""));
+    public ServerStatsCounter counter = new ServerStatsCounter(ExperiencedWorlds.server,ExperiencedWorlds.dataFile("serverstatscounter.json"));
 
     public StatData() {}
 
@@ -58,9 +57,7 @@ public class StatData extends SavedData{
             uuids.add(NbtUtils.createUUID(uuid));
         }
         compoundTag.put("participants", uuids);
-        if(counter instanceof IMixinServerStatsCounter mixin) {
-            compoundTag.putString("counter", mixin.ss$toJSON());
-        }
+        counter.save();
         return compoundTag;
     }
 
@@ -81,7 +78,9 @@ public class StatData extends SavedData{
         for (Tag tag1 : partic) {
             participants.add(NbtUtils.loadUUID(tag1));
         }
-        counter.parseLocal(DataFixers.getDataFixer(),tag.getString("counter"));
+        if(tag.contains("counter")) {
+            counter.parseLocal(DataFixers.getDataFixer(), tag.getString("counter"));
+        }
         if(partic.isEmpty()) {
             GlobalEvents.post(new ServerStatsResetEvent());
         }

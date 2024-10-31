@@ -9,7 +9,6 @@
     "MixinServerAdvancementManager",
     "MixinServerLevel",
     "MixinServerPlayer",
-    "MixinServerStatsCounter",
     "MixinStatsCounter",
     "MixinDimensionDataStorage"
   ],

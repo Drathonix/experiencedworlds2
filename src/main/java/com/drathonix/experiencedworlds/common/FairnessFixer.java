@@ -22,7 +22,7 @@ public class FairnessFixer {
     private static final int range = 5;
     private static BlockPos vec = null;
     private static boolean isOcean = false;
-    public static boolean checkFair(int x, int z, Level l){
+    public synchronized static boolean checkFair(int x, int z, Level l){
         AtomicInteger airCount = new AtomicInteger();
         BlockPos topBlock = scanDown(x, z, l, (lev,p,state) -> {
             if (state.getBlock() == Blocks.AIR) {
@@ -82,7 +82,7 @@ public class FairnessFixer {
         }
         return false;
     }
-    public static BlockPos getFairPos(int x, int z, Level l) throws UnfairnessException {
+    public synchronized static BlockPos getFairPos(int x, int z, Level l) throws UnfairnessException {
         int vecX = l.getRandom().nextIntBetweenInclusive(-1,1);
         int vecZ = l.getRandom().nextIntBetweenInclusive(-1,1);
         //Avoid going nowhere.
@@ -111,7 +111,7 @@ public class FairnessFixer {
         throw new UnfairnessException();
     }
     private static final Set<Block> unsafeBlocks = Set.of(Blocks.ICE,Blocks.BLUE_ICE,Blocks.STONE,Blocks.CALCITE,Blocks.PACKED_ICE);
-    public static boolean isSafeSpawnBlock(BlockState state){
+    public synchronized static boolean isSafeSpawnBlock(BlockState state){
         if(state.liquid()){
             return false;
         }
@@ -121,10 +121,10 @@ public class FairnessFixer {
         }
         return !unsafeBlocks.contains(state.getBlock());
     }
-    public static BlockPos scanDown(int x, int z, Level l, TriPredicate<BlockGetter, BlockPos, BlockState> validator){
+    public synchronized static BlockPos scanDown(int x, int z, Level l, TriPredicate<BlockGetter, BlockPos, BlockState> validator){
         return scanDown(x,l.getHeight(),z,l,validator);
     }
-    public static BlockPos scanDown(int x, int y, int z, Level l, TriPredicate<BlockGetter, BlockPos, BlockState> validator){
+    public synchronized static BlockPos scanDown(int x, int y, int z, Level l, TriPredicate<BlockGetter, BlockPos, BlockState> validator){
         BlockPos pos = new BlockPos(x,y,z);
         BlockState state = l.getBlockState(pos);
         while(!validator.test(l,pos,state)){

@@ -12,12 +12,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayer.class)
 public class MixinServerPlayer {
     @Inject(method = "awardStat",at = @At("HEAD"))
-    public void awardGlobal(Stat<?> stat, int value, CallbackInfo ci){
+    public synchronized void awardGlobal(Stat<?> stat, int value, CallbackInfo ci){
         ServerStatistics.getData().awardStat(stat,value, ss$asSP());
     }
 
     @Inject(method = "resetStat",at = @At("HEAD"))
-    public void resetGlobal(Stat<?> stat, CallbackInfo ci) {
+    public synchronized void resetGlobal(Stat<?> stat, CallbackInfo ci) {
         ServerStatistics.getData().resetStat(stat, ss$asSP());
     }
 

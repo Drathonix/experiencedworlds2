@@ -6,6 +6,7 @@ import com.drathonix.experiencedworlds.common.config.EWCFG;
 import com.drathonix.experiencedworlds.common.data.ExperiencedBorderManager;
 import com.drathonix.experiencedworlds.mixin.MixinMinecraftServer;
 import com.drathonix.serverstatistics.ServerStatistics;
+import com.drathonix.serverstatistics.common.bridge.IMixinDimensionDataStorage;
 import com.mojang.logging.LogUtils;
 import com.vicious.persist.mappify.registry.Stringify;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
@@ -26,6 +27,7 @@ import net.minecraft.stats.StatType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.util.concurrent.Executors;
 
 public class ExperiencedWorlds {
@@ -35,7 +37,7 @@ public class ExperiencedWorlds {
 
     private static long time = 0;
 
-    public static void init() {
+    public synchronized static void init() {
         LOGGER.info("Setting up Experienced Worlds!");
         Stringify.register(ResourceLocation.class,ResourceLocation::tryParse,ResourceLocation::toString);
         //? <1.21.2
@@ -58,7 +60,11 @@ public class ExperiencedWorlds {
             }
         });
     }
-    public static ExperiencedBorderManager getBorder(){
+    public synchronized static ExperiencedBorderManager getBorder(){
         return ExperiencedBorderManager.get(server);
+    }
+
+    public synchronized static File dataFile(String name) {
+        return ((IMixinDimensionDataStorage)server.overworld().getDataStorage()).ss$getCustomDataFile(name);
     }
 }

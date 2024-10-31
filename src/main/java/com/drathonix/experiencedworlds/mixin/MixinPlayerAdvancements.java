@@ -26,7 +26,7 @@ public abstract class MixinPlayerAdvancements implements IMixinPlayerAdvancement
     @Shadow @Final private Map<AdvancementHolder, AdvancementProgress> progress;
 
     @Inject(method = "award",at = @At("RETURN"))
-    public void interceptDone(AdvancementHolder advancementHolder, String string, CallbackInfoReturnable<Boolean> cir){
+    public synchronized void interceptDone(AdvancementHolder advancementHolder, String string, CallbackInfoReturnable<Boolean> cir){
         AdvancementProgress advancementProgress = this.getOrStartProgress(advancementHolder);
         if(advancementProgress.isDone()){
             GlobalEvents.post(new AdvancementCompletedEvent(advancementHolder,player));
@@ -34,7 +34,7 @@ public abstract class MixinPlayerAdvancements implements IMixinPlayerAdvancement
     }
 
     @Inject(method = "revoke",at = @At("RETURN"))
-    public void interceptRevoked(AdvancementHolder advancementHolder, String string, CallbackInfoReturnable<Boolean> cir){
+    public synchronized void interceptRevoked(AdvancementHolder advancementHolder, String string, CallbackInfoReturnable<Boolean> cir){
         AdvancementProgress advancementProgress = this.getOrStartProgress(advancementHolder);
         //Will not run if empty.
         for (String completedCriterion : advancementProgress.getCompletedCriteria()) {

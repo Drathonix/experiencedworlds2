@@ -25,12 +25,12 @@ public abstract class MixinMinecraftServer {
     @Shadow public abstract ServerLevel overworld();
 
     @Inject(method = "<init>",at = @At("RETURN"))
-    public void capture(Thread thread, LevelStorageSource.LevelStorageAccess levelStorageAccess, PackRepository packRepository, WorldStem worldStem, Proxy proxy, DataFixer dataFixer, Services services, ChunkProgressListenerFactory chunkProgressListenerFactory, CallbackInfo ci){
+    public synchronized void capture(Thread thread, LevelStorageSource.LevelStorageAccess levelStorageAccess, PackRepository packRepository, WorldStem worldStem, Proxy proxy, DataFixer dataFixer, Services services, ChunkProgressListenerFactory chunkProgressListenerFactory, CallbackInfo ci){
         ExperiencedWorlds.server=MinecraftServer.class.cast(this);
     }
 
     @Inject(method = "createLevels",at = @At("RETURN"))
-    public void injectCustomSaveData(ChunkProgressListener chunkProgressListener, CallbackInfo ci){
+    public synchronized void injectCustomSaveData(ChunkProgressListener chunkProgressListener, CallbackInfo ci){
         ExperiencedBorderManager.get(MinecraftServer.class.cast(this));
         ExperiencedBorderManager.growBorder();
         StatData.get(MinecraftServer.class.cast(this));

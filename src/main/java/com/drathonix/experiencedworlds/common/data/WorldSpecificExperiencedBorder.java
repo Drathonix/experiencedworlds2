@@ -22,7 +22,7 @@ public class WorldSpecificExperiencedBorder extends SavedData {
         this.level=level;
     }
 
-    public static WorldSpecificExperiencedBorder get(ServerLevel level){
+    public synchronized static WorldSpecificExperiencedBorder get(ServerLevel level){
         SavedData.Factory<WorldSpecificExperiencedBorder> FACTORY = new SavedData.Factory<>(()->new WorldSpecificExperiencedBorder(level),(compound, holder)->new WorldSpecificExperiencedBorder(compound, level), DataFixTypes.LEVEL);
         return level.getDataStorage().computeIfAbsent(FACTORY,"specific_experienced_worlds_manager");
     }
@@ -37,7 +37,7 @@ public class WorldSpecificExperiencedBorder extends SavedData {
         return compoundTag;
     }
 
-    public void shift(ExperiencedBorderManager swb, boolean doFastExpand){
+    public synchronized void shift(ExperiencedBorderManager swb, boolean doFastExpand){
         double newSize = swb.getTransformedBorderSize()*Math.max(1,multiplier)+startingSize;
         WorldBorder border = level.getWorldBorder();
         double size = border.getSize();
