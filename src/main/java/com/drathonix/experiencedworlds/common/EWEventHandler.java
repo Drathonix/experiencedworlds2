@@ -69,10 +69,10 @@ public class EWEventHandler {
     }
 
     public synchronized static void increaseMultiplier(AdvancedFirstTimeEvent afte){
-        ExperiencedBorderManager swb = ExperiencedBorderManager.get(afte.getPlayer().server);
+        ExperiencedBorderManager swb = ExperiencedBorderManager.get(ExperiencedWorlds.server);
         boolean announce = EWCFG.sendAdvancementAnnouncements() && !swb.maximumMultiplier();
         double a2 = Math.round(swb.getCurrentMultiplierGain()*100.0)/100.0;
-        if(announce){
+        if(announce && afte.getPlayer() != null){
             EWChatMessage.from("<3experiencedworlds.advancementattained>",afte.getPlayer().getDisplayName(),a2,Math.round(swb.getSizeMultiplier()*100.0)/100.0).send(ExperiencedWorlds.server.getPlayerList().getPlayers());
         }
         ExperiencedBorderManager.growBorder();

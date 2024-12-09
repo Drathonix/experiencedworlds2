@@ -2,6 +2,7 @@ package com.drathonix.serverstatistics.common.event;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stat;
+import org.jetbrains.annotations.Nullable;
 
 public class StatChangedEvent  {
     private final int change;
@@ -9,7 +10,7 @@ public class StatChangedEvent  {
     private final Stat<?> stat;
     private final ServerPlayer player;
 
-    public StatChangedEvent(int change, Stat<?> stat, ServerPlayer player){
+    public StatChangedEvent(int change, Stat<?> stat, @Nullable ServerPlayer player){
         this.change=change;
         this.stat=stat;
         this.player=player;
@@ -29,7 +30,7 @@ public class StatChangedEvent  {
     public Stat<?> getStat(){
         return stat;
     }
-    public ServerPlayer getPlayer(){
+    public @Nullable ServerPlayer getPlayer(){
         return player;
     }
 }

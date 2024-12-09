@@ -27,6 +27,8 @@ import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.util.datafix.fixes.AdvancementsFix;
 import net.minecraft.world.level.saveddata.SavedData;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 import java.util.*;
@@ -88,7 +90,7 @@ public class StatData extends SavedData{
 
     }
 
-    public void advanceDone(Advancement advancement, ServerPlayer sp){
+    public void advanceDone(Advancement advancement, @Nullable ServerPlayer sp){
         if(advancement.display().isEmpty()){
             return;
         }
@@ -100,6 +102,22 @@ public class StatData extends SavedData{
         holders.add(sp.getUUID());
         if(holders.size() == 1){
             GlobalEvents.post(new AdvancedFirstTimeEvent(sp,advancement));
+            setDirty();
+        }
+    }
+
+    public void advanceDone(Advancement advancement, @NotNull UUID sp){
+        if(advancement.display().isEmpty()){
+            return;
+        }
+        ResourceLocation id = IMixinServerAdvancementManager.getId(ExperiencedWorlds.server,advancement);
+        if(id==null){
+            return;
+        }
+        Set<UUID> holders = completedAdvancements.computeIfAbsent(id,k->new HashSet<>());
+        holders.add(sp);
+        if(holders.size() == 1){
+            GlobalEvents.post(new AdvancedFirstTimeEvent(null,advancement));
             setDirty();
         }
     }
@@ -119,7 +137,7 @@ public class StatData extends SavedData{
         }
     }
 
-    public void awardStat(Stat<?> stat, int value, ServerPlayer player) {
+    public void awardStat(Stat<?> stat, int value, @Nullable ServerPlayer player) {
         //It might be possible for time related statistics to exceed the maximum integer limit. For this reason I find it important to put a safe-guard in.
         //This would really only occur of many players were constantly online, adding their maximum playtime together and producing enormous numbers.
         int statVal = counter.getValue(stat);

@@ -75,6 +75,9 @@ loom {
             "${mod.id}.mixins.json",
         )
     }
+    if(env.isNeo && env.atLeast("1.21.1")) neoForge {
+
+    }
 }
 
 repositories {
@@ -118,7 +121,6 @@ dependencies {
 
     compileOnly("com.vicious:persist:${deps["mod.persist"]}")
     include("com.vicious:persist:${deps["mod.persist"]}")
-
 
     if(env.isFabric) {
         //mappings("net.fabricmc:yarn:${env.mc_ver}+build.${deps["yarn_build"]}:v2")
@@ -279,14 +281,12 @@ tasks.processResources {
             exclude("META-INF/neoforge.mods.toml")
         }
         exclude("fabric.mod.json")
+        exclude("${mod.id}.fabric.mixins.json")
     }
     filesMatching("fabric.mod.json") { expand(map) }
     filesMatching("META-INF/mods.toml") { expand(map) }
     filesMatching("META-INF/neoforge.mods.toml") { expand(map) }
-    filesMatching("protonic.mixins.json") { expand(map) }
-    filesMatching("protonic.fabric.mixins.json") { expand(map) }
-    filesMatching("protonic.forge.mixins.json") { expand(map) }
-    filesMatching("protonic.neoforge.mixins.json") { expand(map) }
+    filesMatching("experiencedworlds.mixins.json") { expand(map) }
 }
 
 tasks.register<Copy>("buildAndCollect") {

@@ -1,11 +1,12 @@
 package com.drathonix.experiencedworlds.common.data;
 
 import com.drathonix.experiencedworlds.ExperiencedWorlds;
-import com.drathonix.experiencedworlds.common.FairnessFixer;
+import com.drathonix.experiencedworlds.common.fairness.FairnessFixer;
 import com.drathonix.experiencedworlds.common.ServerExecutor;
 import com.drathonix.experiencedworlds.common.config.EWCFG;
 import com.drathonix.experiencedworlds.common.math.EWMath;
 import com.drathonix.experiencedworlds.common.util.EWChatMessage;
+import com.drathonix.experiencedworlds.common.util.ExpansionPower;
 import com.drathonix.serverstatistics.ServerStatistics;
 import com.drathonix.serverstatistics.common.bridge.IMixinDimensionDataStorage;
 import com.drathonix.serverstatistics.common.event.StatChangedEvent;
@@ -19,7 +20,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.NotNull;
@@ -83,6 +83,12 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
     public static ScheduledFuture<?> task = null;
     private synchronized static void fixBorder(ServerLevel sl, ExperiencedBorderManager swb){
         swb.fairness = FairnessLevel.CHECKING;
+        if(!EWCFG.fairnessChecker.enabled){
+            EWChatMessage.from(ChatFormatting.GREEN,ChatFormatting.BOLD,"<experiencedworlds.fairnesscheckerdisabled>");
+            sl.getWorldBorder().setCenter(sl.getSharedSpawnPos().getX(),sl.getSharedSpawnPos().getZ());
+            swb.fairness = FairnessLevel.FAIR;
+            return;
+        }
         pauseWorld(sl);
         if(task != null){
             task.cancel(true);
@@ -90,9 +96,10 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
         }
         task = ServerExecutor.execute(() -> {
             WorldBorder border = sl.getWorldBorder();
-            BlockPos fairCenter = FairnessFixer.scanDown(0, 0, sl, (l, p, bs) -> bs.isCollisionShapeFullBlock(l, p));
+            BlockPos fairCenter = EWCFG.fairnessChecker.startAtZeroZero ? FairnessFixer.scanDown(0, 0, sl, (l, p, bs) -> bs.isCollisionShapeFullBlock(l, p)) :
+                    FairnessFixer.scanDown(sl.getSharedSpawnPos().getX(), sl.getSharedSpawnPos().getZ(), sl, (l, p, bs) -> bs.isCollisionShapeFullBlock(l, p));
             try {
-                fairCenter = FairnessFixer.getFairPos(sl.getSharedSpawnPos().getX(), sl.getSharedSpawnPos().getZ(), sl);
+                fairCenter = FairnessFixer.getFairPos(fairCenter.getX(),fairCenter.getZ(), sl);
                 border.setCenter(fairCenter.getX(), fairCenter.getZ());
                 swb.fairness = FairnessLevel.FAIR;
             } catch (FairnessFixer.UnfairnessException e) {
@@ -104,7 +111,7 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
                     player.setGameMode(GameType.SURVIVAL);
                 }
                 if (swb.fairness == FairnessLevel.UNFAIR) {
-                    EWChatMessage.from(ChatFormatting.RED, ChatFormatting.BOLD, "<1experiencedworlds.unfairworld>", EWCFG.fairnessCheckMaximumTime).send(player);
+                    EWChatMessage.from(ChatFormatting.RED, ChatFormatting.BOLD, "<1experiencedworlds.unfairworld>", EWCFG.fairnessChecker.searchMaximumTime).send(player);
                 } else {
                     EWChatMessage.from(ChatFormatting.GREEN, ChatFormatting.BOLD, "<experiencedworlds.fairworld>").send(player);
                 }
@@ -136,12 +143,12 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
         double a2 = Math.round(amount*swb.getSizeMultiplier()*EWCFG.gameplay.sizeGained*100.0)/100.0;
         int current = ServerStatistics.getData().counter.getValue(sce.getStat());
         if(a2 != 1) {
-            if(EWCFG.sendBorderGrowthAnnouncements() && !swb.maximumBorderSize()){
+            if(EWCFG.sendBorderGrowthAnnouncements() && !swb.maximumBorderSize() && sce.getPlayer() != null){
                 EWChatMessage.from("<3experiencedworlds.grewborderplural>", sce.getPlayer().getDisplayName(), current+1,a2).send(ExperiencedWorlds.server.getPlayerList().getPlayers());
             }
         }
         else{
-            if(EWCFG.sendBorderGrowthAnnouncements() && !swb.maximumBorderSize()){
+            if(EWCFG.sendBorderGrowthAnnouncements() && !swb.maximumBorderSize() && sce.getPlayer() != null){
                 EWChatMessage.from("<2experiencedworlds.grewborder>", sce.getPlayer().getDisplayName(), current+1).send(ExperiencedWorlds.server.getPlayerList().getPlayers());
             }
         }
@@ -235,4 +242,8 @@ public class ExperiencedBorderManager extends SavedData implements IWorldBorderD
         return getTransformedBorderSize() >= EWCFG.gameplay.maximumBorderSize;
     }
 
+    public void recalculate() {
+        expansions = (int) ExpansionPower.calculateTruncatedExpansionPower(ServerStatistics.getData().counter);
+        growBorder();
+    }
 }

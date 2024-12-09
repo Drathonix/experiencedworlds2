@@ -5,7 +5,7 @@ import com.drathonix.experiencedworlds.ExperiencedWorlds;
 
 
 //? if fabric {
-/*import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ModInitializer;
 
 public class ENTRY implements ModInitializer {
         @Override
@@ -13,7 +13,7 @@ public class ENTRY implements ModInitializer {
                 ExperiencedWorlds.init();
         }
 }
-*///?}
+//?}
 
 //? elif forge {
 /*import com.vicious.loadmychunks.forge.LMCForge;
@@ -28,7 +28,7 @@ public class ENTRY {
 *///?}
 
 //? elif neoforge {
-import com.drathonix.experiencedworlds.neoforge.NeoForgeInit;
+/*import com.drathonix.experiencedworlds.neoforge.NeoForgeInit;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 @Mod(ExperiencedWorlds.MOD_ID)
@@ -38,5 +38,5 @@ public class ENTRY {
         NeoForgeInit.init(meb);
     }
 }
-//?}
+*///?}
 

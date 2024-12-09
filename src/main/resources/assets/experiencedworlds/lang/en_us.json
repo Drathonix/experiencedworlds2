@@ -13,5 +13,11 @@
   "experiencedworlds.worldmultiplier": "1%$s's world border multiplier is %2$s",
   "experiencedworlds.worldsize": "1%$s's world border size is %2$s",
   "experiencedworlds.searchingforsafety": "Currently searching for a fair starting point. You may be teleported soon.",
-  "experiencedworlds.reloadedconfig": "Reloaded Config!"
+  "experiencedworlds.reloadedconfig": "Reloaded Config!",
+  "experiencedworlds.forceloadstatsstart": "Forceloading all stats. This may take some time...",
+  "experiencedworlds.forceloadstatsend": "Forceloading Complete!",
+  "experiencedworlds.leaderboardheader": "Leaderboard",
+  "experiencedworlds.fairnesscheckerdisabled": "The fairness checker is disabled. Experienced worlds will not look for a fair location.",
+  "experiencedworlds.recalcstart": "Recalculating border size. This may take some time...",
+  "experiencedworlds.recalcend": "Recalculation complete!"
 }

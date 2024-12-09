@@ -1,0 +1,4 @@
+This document exists purely to mark specific translations as possibly inaccurate (likely because they were google translated from the en_us lang)
+
+pt_br:
+Lines 16-21 are Google translated. If they are inaccurate, put in a pull request.

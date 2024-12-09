@@ -1,8 +1,9 @@
-package com.drathonix.experiencedworlds.common;
+package com.drathonix.experiencedworlds.common.fairness;
 
 import com.drathonix.experiencedworlds.common.config.EWCFG;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
@@ -10,20 +11,23 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Predicate;
 
 public class FairnessFixer {
-    private static final int range = 5;
-    private static BlockPos vec = null;
-    private static boolean isOcean = false;
+    private static boolean panicMode = false;
     public synchronized static boolean checkFair(int x, int z, Level l){
         AtomicInteger airCount = new AtomicInteger();
+        Optional<ResourceKey<Biome>> key = l.getBiome(new BlockPos(x,255,z)).unwrapKey();
+        if(key.isPresent()){
+            if(EWCFG.fairnessChecker.biomeBlacklist.contains(key.get().location())){
+                panicMode = true;
+                return false;
+            }
+        }
         BlockPos topBlock = scanDown(x, z, l, (lev,p,state) -> {
             if (state.getBlock() == Blocks.AIR) {
                 airCount.getAndAdd(1);
@@ -32,17 +36,7 @@ public class FairnessFixer {
             }
             return airCount.get() == 2;
         });
-        Optional<ResourceKey<Biome>> key = l.getBiome(topBlock).unwrapKey();
-        if(key.isPresent()){
-            ResourceKey<Biome> k2 = key.get();
-            if(k2.location().getPath().contains("ocean")){
-                isOcean=true;
-                return false;
-            }
-            else{
-                isOcean=false;
-            }
-        }
+        int range = EWCFG.fairnessChecker.conditions.radius;
         Set<Block> blocksFound = new HashSet<>();
         Set<BlockPos> leafPos = new HashSet<>();
         if(isSafeSpawnBlock(l.getBlockState(topBlock))){
@@ -62,52 +56,37 @@ public class FairnessFixer {
                         topOption = topOption.below();
                         top = l.getBlockState(topOption);
                     }
-                    //Spawned on top of tree above stone type block.
-                    if(topOption.getZ() == z && topOption.getX() == x && top.requiresCorrectToolForDrops()){
-                        return false;
-                    }
-                    else if(!top.requiresCorrectToolForDrops()) {
+                    if(!top.requiresCorrectToolForDrops()) {
                         blocksFound.add(top.getBlock());
                     }
                 }
             }
-            if(leafPos.size() < 5){
-                for (BlockPos p : leafPos) {
-                    vec=p;
-                    break;
-                }
+            if(leafPos.size() < EWCFG.fairnessChecker.conditions.leavesRequired){
                 return false;
             }
-            return blocksFound.size() >= 5;
+            if(blocksFound.size() < EWCFG.fairnessChecker.conditions.blocksRequired){
+            }
+            return blocksFound.size() >= EWCFG.fairnessChecker.conditions.blocksRequired;
         }
         return false;
     }
-    public synchronized static BlockPos getFairPos(int x, int z, Level l) throws UnfairnessException {
-        int vecX = l.getRandom().nextIntBetweenInclusive(-1,1);
-        int vecZ = l.getRandom().nextIntBetweenInclusive(-1,1);
-        //Avoid going nowhere.
-        if(vecX == vecZ && vecX == 0){
-            vecX = -1;
-            vecZ = 1;
-        }
-        vecX*=range;
-        vecZ*=range;
-        long time = System.currentTimeMillis()+(((long)(int) EWCFG.fairnessCheckMaximumTime)*1000L);
+    public synchronized static BlockPos getFairPos(int x, int z, ServerLevel l) throws UnfairnessException {
+        //? <1.21.2
+        /*BlockPos current = new BlockPos(x,l.getMaxBuildHeight(),z);*/
+        //? >1.21.1
+        BlockPos current = new BlockPos(x,l.getMaxY(),z);
+        EWCFG.fairnessChecker.travelAlgorithm.setup(l,current);
+        long time = System.currentTimeMillis()+EWCFG.fairnessChecker.searchMaximumTime*1000L;
         while(System.currentTimeMillis() < time) {
-            if(checkFair(x,z,l)) return scanDown(x,z,l,(lev, p, bs) -> bs.isSolid());
-            if(vec != null){
-                vecX = vec.getX()/Math.abs(vec.getX());
-                vecZ = vec.getZ()/Math.abs(vec.getZ());
+            System.out.println("Checking: " + current.getX() + " : " + current.getZ() + ": " + (time-System.currentTimeMillis())/1000);
+            if(checkFair(current.getX(),current.getZ(),l)){
+                EWCFG.fairnessChecker.travelAlgorithm.cleanup();
+                return scanDown(current.getX(),current.getZ(),l,(lev, p, bs) -> bs.isSolid());
             }
-            if(!isOcean) {
-                x += vecX;
-                z += vecZ;
-            }
-            else{
-                x += vecX*20;
-                z += vecZ*20;
-            }
+            current = EWCFG.fairnessChecker.travelAlgorithm.nextBlockPosition(l,current,panicMode);
+            panicMode=false;
         }
+        EWCFG.fairnessChecker.travelAlgorithm.cleanup();
         throw new UnfairnessException();
     }
     private static final Set<Block> unsafeBlocks = Set.of(Blocks.ICE,Blocks.BLUE_ICE,Blocks.STONE,Blocks.CALCITE,Blocks.PACKED_ICE);
@@ -116,7 +95,7 @@ public class FairnessFixer {
             return false;
         }
         else if(state.requiresCorrectToolForDrops()){
-            isOcean=true;
+            panicMode=true;
             return false;
         }
         return !unsafeBlocks.contains(state.getBlock());

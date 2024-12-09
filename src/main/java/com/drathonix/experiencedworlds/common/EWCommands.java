@@ -5,19 +5,24 @@ import com.drathonix.experiencedworlds.common.config.EWCFG;
 import com.drathonix.experiencedworlds.common.data.ExperiencedBorderManager;
 import com.drathonix.experiencedworlds.common.data.WorldSpecificExperiencedBorder;
 import com.drathonix.experiencedworlds.common.util.EWChatMessage;
+import com.drathonix.experiencedworlds.common.util.ExpansionPower;
+import com.drathonix.serverstatistics.ServerStatistics;
+import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.dedicated.DedicatedServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.ServerLevelData;
+
+import java.util.Optional;
+import java.util.UUID;
 
 public class EWCommands {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -46,7 +51,7 @@ public class EWCommands {
                                 })))
                 .then(Commands.literal("world")
                         .executes((ctx)->{
-                            EWChatMessage.from(getWorld(ctx).getLevelData()).send(ctx);
+                            EWChatMessage.from(((ServerLevelData)getWorld(ctx).getLevelData()).getLevelName()).send(ctx);
                             return 1;
                         })
                         .requires((ctx)->ctx.hasPermission(Commands.LEVEL_ADMINS))
@@ -76,6 +81,47 @@ public class EWCommands {
                                 })
                                 .then(Commands.argument("value",DoubleArgumentType.doubleArg(0)))
                         )
+                )
+                .then(Commands.literal("forceloadstats")
+                        .requires(ctx->ctx.hasPermission(Commands.LEVEL_ADMINS))
+                        .executes(ctx->{
+                            EWChatMessage.from("<experiencedworlds.forceloadstatsstart>").send(ctx.getSource());
+                            ServerStatistics.forceLoginAll();
+                            ExperiencedWorlds.getBorder().recalculate();
+                            EWChatMessage.from("<experiencedworlds.forceloadstatsend>").send(ctx.getSource());
+                            return 1;
+                        })
+                )
+                .then(Commands.literal("leaderboard")
+                        .executes(ctx->{
+                            EWChatMessage.from("<experiencedworlds.leaderboardheader>").send(ctx.getSource());
+                            int k = 1;
+                            for (Pair<UUID, Double> uuidDoublePair : ExpansionPower.getExpansionPowerLeaderBoard()) {
+                                if(uuidDoublePair.getFirst() == null) {
+                                    EWChatMessage.from(0, ". ", "SERVER", ": ", uuidDoublePair.getSecond().longValue(), "EP").send(ctx.getSource());
+                                }
+                                else {
+                                    Optional<GameProfile> profile = ExperiencedWorlds.server.getProfileCache().get(uuidDoublePair.getFirst());
+                                    if (profile.isPresent()) {
+                                        EWChatMessage.from(k, ". ", profile.get().getName(), ": ", uuidDoublePair.getSecond().longValue(), "EP").send(ctx.getSource());
+                                        k++;
+                                        if (k > 10) {
+                                            return 1;
+                                        }
+                                    }
+                                }
+                            }
+                            return 1;
+                        })
+                ).then(Commands.literal("recalculate")
+                        .requires(ctx->ctx.hasPermission(Commands.LEVEL_ADMINS))
+                        .executes(ctx->{
+                            ExperiencedBorderManager ebm = ExperiencedWorlds.getBorder();
+                            EWChatMessage.from("<experiencedworlds.recalcstart>").send(ctx.getSource());
+                            ebm.recalculate();
+                            EWChatMessage.from("<experiencedworlds.recalcend>").send(ctx.getSource());
+                            return 1;
+                        })
                 );
         dispatcher.register(cmd);
     }

@@ -30,13 +30,17 @@ public abstract class MixinDimensionDataStorage implements IMixinDimensionDataSt
 
     @Shadow @Final private HolderLookup.Provider registries;
 
-    @Shadow
+    //? >1.21.1 && <1.21.4 {
+    /*@Shadow
     private static @NotNull CompletableFuture<Void> tryWriteAsync(Path par1, CompoundTag par2) {
         return null;
     }
-
-
-    @Shadow @Final private Path dataFolder;
+    *///?}
+    //? >1.21.3 {
+    @Shadow
+    private static void tryWrite(Path par1, CompoundTag par2) {
+    }
+    //?}
 
     @Override
     public void ss$forceSave(String key) {
@@ -52,16 +56,41 @@ public abstract class MixinDimensionDataStorage implements IMixinDimensionDataSt
             //?}
                 //? <1.21.2
                 /*data.save(this.getDataFile(key), this.registries);*/
-                //? >1.21.1
-                tryWriteAsync(this.getDataFile(key),data.save(this.registries)).join();
+                //? >1.21.1 && <1.21.4
+                /*tryWriteAsync(this.getDataFile(key),data.save(this.registries)).join();*/
+                //? >1.21.3
+                tryWrite(this.getDataFile(key),data.save(this.registries));
             }
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
+    //? <1.21.2 {
+    /*@Shadow @Final private File dataFolder;
+
+    @Override
+    public File ss$getCustomDataFile(String name) {
+        return new File(this.dataFolder, name);
+    }
+
+    @Override
+    public File ss$getWorldDir() {
+        return this.dataFolder.getParentFile();
+    }
+    *///?}
+
+    //? >1.21.1 {
+    @Shadow @Final private Path dataFolder;
+
     @Override
     public File ss$getCustomDataFile(String name) {
         return new File(this.dataFolder.toFile(), name);
     }
+
+    @Override
+    public File ss$getWorldDir() {
+        return this.dataFolder.toFile().getParentFile();
+    }
+    //?}
 }
