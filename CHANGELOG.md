@@ -21,3 +21,6 @@ Added /experiencedworlds recalculate - Recalculates the border expansions (not t
 
 As a note of why recalculate was added, my server exceeded the storage space which corrupted the experienced worlds data files, re-running forceloadstats should have fixed the problem, but it seems it was broken by the world corruption (and I don't know how). Recalculate is 100% accurate.
 If you're wondering about how expansions are calculated, they are only calculated when a stat changes and only for that stat. Recalculate calculates the total expansions for all stats which is much more computationally expensive especially as stats grow.
+
+# V-2.0.5a:
+Removes a fairness checker debug message left in.

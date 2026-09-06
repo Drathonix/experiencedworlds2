@@ -78,7 +78,6 @@ public class FairnessFixer {
         EWCFG.fairnessChecker.travelAlgorithm.setup(l,current);
         long time = System.currentTimeMillis()+EWCFG.fairnessChecker.searchMaximumTime*1000L;
         while(System.currentTimeMillis() < time) {
-            System.out.println("Checking: " + current.getX() + " : " + current.getZ() + ": " + (time-System.currentTimeMillis())/1000);
             if(checkFair(current.getX(),current.getZ(),l)){
                 EWCFG.fairnessChecker.travelAlgorithm.cleanup();
                 return scanDown(current.getX(),current.getZ(),l,(lev, p, bs) -> bs.isSolid());
